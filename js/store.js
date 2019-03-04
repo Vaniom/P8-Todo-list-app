@@ -123,7 +123,8 @@
 		var data = JSON.parse(localStorage[this._dbName]);
 		var todos = data.todos;
 		var todoId;
-		
+		/**TODO simplification des boucles */
+		/*
 		for (var i = 0; i < todos.length; i++) {
 			if (todos[i].id == id) {
 				todoId = todos[i].id;
@@ -132,6 +133,12 @@
 
 		for (var i = 0; i < todos.length; i++) {
 			if (todos[i].id == todoId) {
+				todos.splice(i, 1);
+			}
+		}
+		*/
+		for (var i = 0; i < todos.length; i++) {
+			if (todos[i].id == id) {
 				todos.splice(i, 1);
 			}
 		}
