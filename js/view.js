@@ -1,4 +1,4 @@
-/*global qs, qsa, $on, $parent, $delegate */
+/* global qs, qsa, $on, $parent, $delegate */
 
 (function (window) {
 	'use strict';
@@ -172,6 +172,54 @@
 
 	View.prototype.bind = function (event, handler) {
 		var self = this;
+
+		/* TODO Utilisation de l'instruction switch au lieu des conditions if.... else if */
+		
+		switch(event) {
+			case 'newTodo':
+			$on(self.$newTodo, 'change', function () {
+				handler(self.$newTodo.value);
+			});
+			break;
+
+			case 'removeCompleted' : 
+			$on(self.$clearCompleted, 'click', function () {
+				handler();
+			});
+			break;
+
+			case 'toggleAll' :
+			$on(self.$toggleAll, 'click', function () {
+				handler({completed: this.checked});
+			});
+			break;
+
+			case 'itemEdit' :
+			$delegate(self.$todoList, 'li label', 'dblclick', function () {
+				handler({id: self._itemId(this)});
+			});
+			break;
+
+			case 'itemToggle' :
+			$delegate(self.$todoList, '.toggle', 'click', function () {
+				handler({
+					id: self._itemId(this),
+					completed: this.checked
+				});
+			});
+			break;
+
+			case 'itemEditDone':
+			self._bindItemEditDone(handler);
+			break;
+
+			case 'itemEditCancel' :
+			self._bindItemEditCancel(handler);
+
+		}
+	};
+
+		/*
 		if (event === 'newTodo') {
 			$on(self.$newTodo, 'change', function () {
 				handler(self.$newTodo.value);
@@ -212,6 +260,7 @@
 			self._bindItemEditCancel(handler);
 		}
 	};
+	*/
 
 	// Export to window
 	window.app = window.app || {};

@@ -47,7 +47,7 @@
 	Model.prototype.read = function (query, callback) {
 		var queryType = typeof query;
 		callback = callback || function () {};
-
+		
 		if (queryType === 'function') {
 			callback = query;
 			return this.storage.findAll(callback);
@@ -58,6 +58,7 @@
 			this.storage.find(query, callback);
 		}
 	};
+
 
 	/**
 	 * Updates a model by giving it an ID, data to update, and a callback to fire when
