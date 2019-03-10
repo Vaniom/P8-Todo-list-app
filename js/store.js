@@ -81,13 +81,19 @@
 		callback = callback || function () {};
 
 		// Generate an ID
+
+	 /** TODO modification de la methode d'attribution de l'id: attribution d'un id sous la forme date.now() => dans un contexte de stockage local, quasi impossible d'attribuer deux fois le même id, ce qui rend toute methode de verification d'id unique non necessaire */
+
+		var newId = Date.now();
+
+		/*
 	    var newId = ""; 
 	    var charset = "0123456789";
 
         for (var i = 0; i < 6; i++) {
      		newId += charset.charAt(Math.floor(Math.random() * charset.length));
 		}
-
+		*/
 		// If an ID was actually given, find the item and update each property
 		if (id) {
 			for (var i = 0; i < todos.length; i++) {
@@ -104,8 +110,7 @@
 		} else {
 
     		// Assign an ID
-			updateData.id = parseInt(newId);
-    
+			updateData.id = parseInt(newId);    
 
 			todos.push(updateData);
 			localStorage[this._dbName] = JSON.stringify(data);
